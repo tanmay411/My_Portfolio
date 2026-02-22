@@ -700,7 +700,8 @@
         </p>
 
         <div class="text-center mt-4 mb-4" data-aos="zoom-in" data-aos-delay="150">
-          <a href="assets/resume.pdf" class="download-btn" download>
+          <a href="https://drive.google.com/file/d/1-2KIwWLwA0OD55AA2sAr_yDF6pa1bFul/view?usp=drive_link"
+            class="download-btn" target="_blank" download>
             <i class="fas fa-download"></i>
             Download Resume
           </a>
@@ -726,8 +727,13 @@
             <hr style="height: 3px; background-color: #0dcaf0;" class="w-50" />
 
             <h4 class="mt-4">High School</h4>
-            <p class="text-muted">2020 - 2024</p>
+            <strong>The Millennium School, Lucknow</strong>
+            <p class="text-muted">2022 - 2023</p>
             <p>Completed secondary education with focus on computer science and mathematics.</p>
+            <h4 class="mt-4">Diploma in Information Technology</h4>
+            <strong>Hewett Polytechnic Lucknow</strong>
+            <p class="text-muted">2023 - 2026</p>
+            <p>Completed diploma in Information Technology with focus on web development and programming.</p>
           </div>
 
           <div class="col-md-6" data-aos="fade-left" data-aos-delay="250">
@@ -735,7 +741,7 @@
             <hr style="height: 3px; background-color: #0dcaf0;" class="w-50" />
 
             <h4 class="mt-4">Freelance Web Developer</h4>
-            <p class="text-muted">2023 - Present</p>
+            <p class="text-muted">2026 - Present</p>
             <p>
               Developing custom websites and web applications for clients using modern technologies
               including HTML, CSS, JavaScript, PHP, and Laravel framework.
@@ -744,6 +750,26 @@
               <li>Built responsive websites for various clients</li>
               <li>Implemented custom PHP/Laravel solutions</li>
               <li>Maintained and updated existing web applications</li>
+            </ul>
+            <h4 class="mt-4">Kryotek Softwares</h4>
+            <p class="text-muted">2026 - Present</p>
+            <p>
+              Developing custom websites and web applications for clients using modern technologies
+              including HTML, CSS, JavaScript, PHP, Wordpress and Laravel framework.
+            </p>
+            <ul>
+              <li>Built responsive websites for various clients</li>
+              <li>Implemented custom PHP/Laravel solutions</li>
+            </ul>
+            <h4 class="mt-4">Techtro Football Academy</h4>
+            <p class="text-muted">NOV 2025 - JAN 2026</p>
+            <p>
+              Developing custom websites and web applications for football academy using modern technologies
+              including HTML, CSS, JavaScript,Wordpress.
+            </p>
+            <ul>
+              <li>Built responsive websites for football academy</li>
+              <li>Implemented custom WordPress themes and plugins</li>
             </ul>
           </div>
         </div>
@@ -852,8 +878,7 @@
               <div class="card-body text-center">
                 <h5 class="card-title">Pokémon Encyclopedia</h5>
                 <p class="card-text">Interactive encyclopedia for Pokémon information.</p>
-                <a href="assets/Interactive Pokémon Encyclopedia Website.php" target="_blank"
-                  class="btn btn-primary">View Project</a>
+                <a href="assets/pokemon.php" target="_blank" class="btn btn-primary">View Project</a>
               </div>
             </div>
           </div>
