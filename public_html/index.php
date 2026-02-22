@@ -45,7 +45,6 @@
       overflow-x: hidden;
     }
 
-    /* Hide scrollbar but keep functionality */
     .sidebar::-webkit-scrollbar {
       width: 6px;
     }
@@ -262,7 +261,6 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    /* Overlay backdrop */
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -361,13 +359,34 @@
 
     .carousel-control-prev,
     .carousel-control-next {
-      width: 5%;
-      opacity: 0.8;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(13, 202, 240, 0.8);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-control-prev {
+      left: -60px;
+    }
+
+    .carousel-control-next {
+      right: -60px;
     }
 
     .carousel-control-prev:hover,
     .carousel-control-next:hover {
-      opacity: 1;
+      background-color: rgba(13, 202, 240, 1);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 20px;
+      height: 20px;
     }
 
     .carousel-indicators {
@@ -386,9 +405,18 @@
         max-height: 400px;
       }
 
+      .carousel-control-prev {
+        left: 10px;
+      }
+
+      .carousel-control-next {
+        right: 10px;
+      }
+
       .carousel-control-prev,
       .carousel-control-next {
-        width: 10%;
+        width: 40px;
+        height: 40px;
       }
 
       .carousel-indicators {
@@ -400,6 +428,12 @@
       .certification-carousel img {
         max-height: 300px;
       }
+
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 35px;
+        height: 35px;
+      }
     }
 
     /* ===== FOOTER ===== */
@@ -408,6 +442,38 @@
       color: white;
       padding: 3rem 0 1rem;
       margin-top: 0;
+    }
+
+    /* ===== DOWNLOAD BUTTON ===== */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      border: none;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      color: white;
+    }
+
+    .download-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .download-btn i {
+      font-size: 18px;
     }
   </style>
 </head>
@@ -419,7 +485,6 @@
       <img src="assets/my.jpg" class="profile-img rounded-circle" alt="Tanmay Srivastava Profile Picture" />
       <h4 class="text-white mt-3">Tanmay Srivastava</h4>
 
-      <!-- Social Links -->
       <div class="d-flex gap-3 justify-content-center mt-3">
         <a href="https://www.instagram.com/tsrivastava411/" aria-label="Instagram">
           <i class="text-white fa-brands fa-instagram fs-5"></i>
@@ -427,17 +492,15 @@
         <a href="https://www.facebook.com/share/1D9yjX9q49/" aria-label="Facebook">
           <i class="text-white fa-brands fa-facebook fs-5"></i>
         </a>
-        <a href="https://www.linkedin.com/in/tanmay-srivastava-42503934a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-          aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/tanmay-srivastava-42503934a" aria-label="LinkedIn">
           <i class="text-white fa-brands fa-linkedin fs-5"></i>
         </a>
-        <a href="#" aria-label="GitHub">
+        <a href="https://github.com/tanmay411" aria-label="GitHub">
           <i class="text-white fa-brands fa-github fs-5"></i>
         </a>
       </div>
     </div>
 
-    <!-- Navigation -->
     <ul class="sidebar-nav">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -449,17 +512,15 @@
     </ul>
   </aside>
 
-  <!-- HAMBURGER MENU (Mobile) -->
+  <!-- HAMBURGER MENU -->
   <div class="hamburger-menu">
     <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
   </div>
 
-  <!-- MENU OVERLAY -->
   <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
-  <!-- MOBILE NAVIGATION -->
   <div class="mobile-nav" id="mobileNav">
     <ul>
       <li><a href="#home" class="nav-link text-white" onclick="closeMenu()">Home</a></li>
@@ -472,12 +533,11 @@
     </ul>
   </div>
 
-  <!-- MAIN CONTENT -->
   <main class="main-content">
     <!-- HERO SECTION -->
     <section id="home" class="hero-section">
       <img src="assets/me1.jpg" class="hero-image" alt="Tanmay Srivastava" />
-      <div class="hero-text">
+      <div class="hero-text" data-aos="fade-right" data-aos-duration="800">
         <h1 id="typewriter"></h1>
         <span class="cursor">_</span>
       </div>
@@ -485,11 +545,11 @@
 
     <!-- ABOUT SECTION -->
     <section id="about">
-      <div class="container" data-aos="fade-up">
-        <h2 class="section-title">About</h2>
-        <div class="section-underline"></div>
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">About</h2>
+        <div class="section-underline" data-aos="fade-up" data-aos-delay="50"></div>
 
-        <p class="fs-5">
+        <p class="fs-5" data-aos="fade-up" data-aos-delay="100">
           I am a skilled web developer with expertise in <strong>HTML, CSS, JavaScript, jQuery, Bootstrap,
             PHP, and Laravel</strong>, capable of building responsive and dynamic web applications. I also have a
           solid grasp of <strong>C programming</strong>, which strengthens my problem-solving and logical thinking.
@@ -497,11 +557,11 @@
         </p>
 
         <div class="row align-items-center mt-5">
-          <div class="col-md-4 text-center">
+          <div class="col-md-4 text-center" data-aos="zoom-in" data-aos-delay="150">
             <img src="assets/me2.jpg" class="about-img" alt="Tanmay Srivastava" />
           </div>
 
-          <div class="col-md-8">
+          <div class="col-md-8" data-aos="fade-left" data-aos-delay="200">
             <h3 class="mb-4">UI/UX Designer & Web Developer</h3>
 
             <div class="row">
@@ -534,8 +594,7 @@
                   </li>
                   <li>
                     <i class="bi bi-caret-right-square fs-5"></i>
-                    <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                      data-cfemail="10646362796671636471667124212350777d71797c3e737f7d">[email&#160;protected]</a>
+                    <strong>Email:</strong> tsrivastava413@gmail.com
                   </li>
                   <li>
                     <i class="bi bi-caret-right-square fs-5"></i>
@@ -551,7 +610,7 @@
           </div>
         </div>
 
-        <p class="fs-5 mt-4">
+        <p class="fs-5 mt-4" data-aos="fade-up" data-aos-delay="250">
           I build responsive and dynamic websites using HTML, CSS, JavaScript, Bootstrap, jQuery, PHP, and MySQL.
         </p>
       </div>
@@ -560,17 +619,15 @@
     <!-- SKILLS SECTION -->
     <section id="skills">
       <div class="container">
-        <h2 class="section-title">Skills</h2>
-        <div class="section-underline"></div>
+        <h2 class="section-title" data-aos="fade-up">Skills</h2>
+        <div class="section-underline" data-aos="fade-up" data-aos-delay="50"></div>
 
-        <p class="fs-5">
-          Skilled in front-end development using HTML, CSS, JavaScript, Bootstrap, and jQuery to create
-          responsive web interfaces, with strong back-end expertise in PHP and the Laravel framework for building
-          dynamic and scalable web applications.
+        <p class="fs-5" data-aos="fade-up" data-aos-delay="100">
+          Proficient in modern web technologies for creating responsive, dynamic, and scalable applications.
         </p>
 
         <div class="row mt-5">
-          <div class="col-md-6">
+          <div class="col-md-6" data-aos="fade-right" data-aos-delay="150">
             <div class="skill-item">
               <h4>HTML, CSS, JS</h4>
               <div class="progress">
@@ -596,7 +653,7 @@
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
             <div class="skill-item">
               <h4>Bootstrap</h4>
               <div class="progress">
@@ -622,23 +679,35 @@
             </div>
           </div>
         </div>
+
+        <p class="fs-5 mt-5 text-center" data-aos="fade-up" data-aos-delay="250">
+          Continuously expanding my skill set through hands-on projects and staying updated with the latest industry
+          trends and best practices.
+        </p>
       </div>
     </section>
 
     <!-- RESUME SECTION -->
     <section id="resume">
       <div class="container">
-        <h2 class="section-title text-center">Resume</h2>
-        <div class="section-underline mx-auto"></div>
+        <h2 class="section-title text-center" data-aos="fade-up">Resume</h2>
+        <div class="section-underline mx-auto" data-aos="fade-up" data-aos-delay="50"></div>
 
-        <p class="fs-5">
+        <p class="fs-5" data-aos="fade-up" data-aos-delay="100">
           Motivated and detail-oriented professional with a proven ability to deliver high-quality
           results in fast-paced environments. Skilled in teamwork, problem-solving, and adapting to new
           challenges to drive organizational success.
         </p>
 
+        <div class="text-center mt-4 mb-4" data-aos="zoom-in" data-aos-delay="150">
+          <a href="assets/resume.pdf" class="download-btn" download>
+            <i class="fas fa-download"></i>
+            Download Resume
+          </a>
+        </div>
+
         <div class="row mt-5">
-          <div class="col-md-6">
+          <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
             <h3>Summary</h3>
             <hr style="height: 3px; background-color: #0dcaf0;" class="w-50" />
 
@@ -650,8 +719,7 @@
             <ul>
               <li>Lucknow, Uttar Pradesh, India</li>
               <li>+91 7376913272</li>
-              <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                  data-cfemail="95e1e6e7fce3f4e6e1f4e3f4a1a4a6d5f2f8f4fcf9bbf6faf8">[email&#160;protected]</a></li>
+              <li>tsrivastava413@gmail.com</li>
             </ul>
 
             <h3 class="mt-5">Education</h3>
@@ -662,7 +730,7 @@
             <p>Completed secondary education with focus on computer science and mathematics.</p>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6" data-aos="fade-left" data-aos-delay="250">
             <h3>Professional Experience</h3>
             <hr style="height: 3px; background-color: #0dcaf0;" class="w-50" />
 
@@ -685,11 +753,15 @@
     <!-- CERTIFICATION SECTION -->
     <section id="certification">
       <div class="container">
-        <h2 class="section-title text-center">Certifications</h2>
-        <div class="section-underline mx-auto"></div>
+        <h2 class="section-title text-center" data-aos="fade-up">Certifications</h2>
+        <div class="section-underline mx-auto" data-aos="fade-up" data-aos-delay="50"></div>
 
-        <div id="certCarousel" class="carousel slide certification-carousel mt-5" data-bs-ride="carousel">
-          <!-- Carousel Indicators -->
+        <p class="fs-5 text-center" data-aos="fade-up" data-aos-delay="100">
+          Professional certifications validating my expertise in web development and modern technologies.
+        </p>
+
+        <div id="certCarousel" class="carousel slide certification-carousel mt-5" data-bs-ride="carousel"
+          data-aos="zoom-in" data-aos-delay="150">
           <div class="carousel-indicators">
             <button type="button" data-bs-target="#certCarousel" data-bs-slide-to="0" class="active" aria-current="true"
               aria-label="Certificate 1"></button>
@@ -703,7 +775,6 @@
               aria-label="Certificate 5"></button>
           </div>
 
-          <!-- Carousel Items -->
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="assets/certificate5.jpg" class="d-block w-100" alt="Certificate 1">
@@ -722,7 +793,6 @@
             </div>
           </div>
 
-          <!-- Carousel Controls -->
           <button class="carousel-control-prev" type="button" data-bs-target="#certCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -732,17 +802,22 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
+
+        <p class="fs-5 mt-5 text-center" data-aos="fade-up" data-aos-delay="200">
+          Each certification represents dedicated learning and mastery of essential web development skills and
+          frameworks.
+        </p>
       </div>
     </section>
 
     <!-- PROJECTS SECTION -->
     <section id="projects">
       <div class="container">
-        <h2 class="section-title text-center">Projects</h2>
-        <div class="section-underline mx-auto"></div>
+        <h2 class="section-title text-center" data-aos="fade-up">Projects</h2>
+        <div class="section-underline mx-auto" data-aos="fade-up" data-aos-delay="50"></div>
 
         <div class="row g-4 mt-4">
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
             <div class="card project-card">
               <div class="card-body text-center">
                 <h5 class="card-title">Digital Calculator</h5>
@@ -752,7 +827,7 @@
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
             <div class="card project-card">
               <div class="card-body text-center">
                 <h5 class="card-title">Analog Watch</h5>
@@ -762,7 +837,7 @@
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
             <div class="card project-card">
               <div class="card-body text-center">
                 <h5 class="card-title">Weather App</h5>
@@ -772,17 +847,18 @@
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="250">
             <div class="card project-card">
               <div class="card-body text-center">
                 <h5 class="card-title">Pokémon Encyclopedia</h5>
                 <p class="card-text">Interactive encyclopedia for Pokémon information.</p>
-                <a href="assets/pokemon.php" target="_blank" class="btn btn-primary">View Project</a>
+                <a href="assets/Interactive Pokémon Encyclopedia Website.php" target="_blank"
+                  class="btn btn-primary">View Project</a>
               </div>
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
             <div class="card project-card">
               <div class="card-body text-center">
                 <h5 class="card-title">Ledger</h5>
@@ -792,7 +868,7 @@
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="350">
             <div class="card project-card">
               <div class="card-body text-center">
                 <h5 class="card-title">Tic Tac Toe</h5>
@@ -809,25 +885,25 @@
     <section id="contact" class="footer-section">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 text-center mb-4">
+          <div class="col-md-6 text-center mb-4" data-aos="fade-right">
             <h4>Social Media</h4>
             <div class="d-flex gap-3 justify-content-center mt-3">
               <a href="https://www.instagram.com/tsrivastava411/" aria-label="Instagram">
                 <i class="text-white fa-brands fa-instagram fs-4"></i>
               </a>
-              <a href="#" aria-label="Facebook">
+              <a href="https://www.facebook.com/share/1D9yjX9q49/" aria-label="Facebook">
                 <i class="text-white fa-brands fa-facebook fs-4"></i>
               </a>
-              <a href="#" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/tanmay-srivastava-42503934a" aria-label="LinkedIn">
                 <i class="text-white fa-brands fa-linkedin fs-4"></i>
               </a>
-              <a href="#" aria-label="GitHub">
+              <a href="https://github.com/tanmay411" aria-label="GitHub">
                 <i class="text-white fa-brands fa-github fs-4"></i>
               </a>
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6" data-aos="fade-left">
             <h4 class="text-center mb-3">Contact Form</h4>
             <form action="registration.php" method="post">
               <div class="mb-3">
@@ -853,65 +929,36 @@
     </section>
   </main>
 
-  <!-- Bootstrap JS -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-
-  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-
-  <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <script>
-    // Initialize AOS
     AOS.init({
-      duration: 1000,
-      once: true
+      duration: 600,
+      once: true,
+      offset: 100
     });
 
-    // Typewriter Effect
     gsap.registerPlugin(TextPlugin);
-
     const typewriterTimeline = gsap.timeline({ repeat: -1 });
     typewriterTimeline
-      .to("#typewriter", {
-        duration: 2,
-        text: "I am a WEB DEVELOPER!",
-        ease: "none"
-      })
+      .to("#typewriter", { duration: 2, text: "I am a WEB DEVELOPER!", ease: "none" })
       .to({}, { duration: 1.5 })
-      .to("#typewriter", {
-        duration: 2,
-        text: "I am a Freelancer!",
-        ease: "none"
-      })
+      .to("#typewriter", { duration: 2, text: "I am a Freelancer!", ease: "none" })
       .to({}, { duration: 1.5 });
 
-    // Cursor Blink
-    gsap.to(".cursor", {
-      opacity: 0,
-      ease: "steps(1)",
-      repeat: -1,
-      duration: 0.5
-    });
+    gsap.to(".cursor", { opacity: 0, ease: "steps(1)", repeat: -1, duration: 0.5 });
 
-    // Progress Bar Animation
     gsap.registerPlugin(ScrollTrigger);
-
     document.querySelectorAll('.progress-bar').forEach((bar) => {
       const targetVal = bar.getAttribute('aria-valuenow');
-
       gsap.to(bar, {
-        scrollTrigger: {
-          trigger: bar,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        },
+        scrollTrigger: { trigger: bar, start: "top 80%", toggleActions: "play none none none" },
         width: targetVal + "%",
         duration: 1.5,
         ease: "power2.out",
@@ -922,19 +969,14 @@
       });
     });
 
-    // Mobile Menu Toggle Functions
     function toggleMenu() {
-      const mobileNav = document.getElementById('mobileNav');
-      const menuOverlay = document.getElementById('menuOverlay');
-      mobileNav.classList.toggle('active');
-      menuOverlay.classList.toggle('active');
+      document.getElementById('mobileNav').classList.toggle('active');
+      document.getElementById('menuOverlay').classList.toggle('active');
     }
 
     function closeMenu() {
-      const mobileNav = document.getElementById('mobileNav');
-      const menuOverlay = document.getElementById('menuOverlay');
-      mobileNav.classList.remove('active');
-      menuOverlay.classList.remove('active');
+      document.getElementById('mobileNav').classList.remove('active');
+      document.getElementById('menuOverlay').classList.remove('active');
     }
   </script>
 </body>

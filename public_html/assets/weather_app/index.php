@@ -117,6 +117,7 @@
             animation: fadeIn 0.5s ease;
         }
 
+        /* Weather details animation */
         @keyframes fadeIn {
             from {
                 opacity: 0;
