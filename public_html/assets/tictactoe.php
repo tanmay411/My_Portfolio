@@ -1,295 +1,316 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tic Tac Toe — Simple</title>
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap"
+        rel="stylesheet">
     <style>
+        :root {
+            --x-color: #00f0ff;
+            --o-color: #ff4d6d;
+            --bg: #0a0a12;
+            --card: #12121e;
+            --border: #1e1e32;
+            --glow-x: 0 0 18px #00f0ff88;
+            --glow-o: 0 0 18px #ff4d6d88;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background: #f8f9fa;
-        }
-
-        .board {
-            max-width: 420px;
-            margin: 30px auto;
-        }
-
-        .cell {
-            width: 120px;
-            height: 120px;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            cursor: pointer;
-            user-select: none;
-            background: #fff;
-            border: 2px solid #dee2e6;
+            gap: 28px;
+            overflow: hidden;
         }
 
-        .row-cell {
+        /* animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            letter-spacing: 6px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px #00f0ff66;
+        }
+
+        /* Turn indicator */
+        #status {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: #aaa;
+            height: 24px;
+            transition: color 0.3s;
+        }
+
+        #status.x {
+            color: var(--x-color);
+            text-shadow: var(--glow-x);
+        }
+
+        #status.o {
+            color: var(--o-color);
+            text-shadow: var(--glow-o);
+        }
+
+        .container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 0 60px #00f0ff0a, 0 20px 60px #00000088;
+        }
+
+        /* ---- YOUR ORIGINAL GRID CODE (unchanged) ---- */
+        .row {
             display: flex;
         }
 
-        .cell.disabled {
+        .col {
+            height: 65px;
+            width: 65px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* ---- END ORIGINAL ---- */
+
+        /* Design layered on top without touching original */
+        .col {
+            border-color: #1e1e38 !important;
+            border-radius: 8px;
+            margin: 3px;
+            background: #0d0d1a;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            user-select: none;
+        }
+
+        .col:hover:not(.taken) {
+            background: #16162a;
+            transform: scale(1.06);
+        }
+
+        .col.x-mark {
+            color: var(--x-color);
+            text-shadow: var(--glow-x);
+        }
+
+        .col.o-mark {
+            color: var(--o-color);
+            text-shadow: var(--glow-o);
+        }
+
+        .col.taken {
             cursor: not-allowed;
-            opacity: 0.75;
         }
 
-        .cell.win {
-            background: linear-gradient(90deg, #ffd54a33, #ffd54a11);
+        .col.winner-cell {
+            background: #1a1a2e;
+            animation: pulse 0.6s ease infinite alternate;
         }
 
-        .status {
-            min-height: 2.2rem;
-        }
-
-        @media (max-width: 480px) {
-            .cell {
-                width: 90px;
-                height: 90px;
-                font-size: 2.4rem;
+        @keyframes pulse {
+            from {
+                box-shadow: none;
             }
+
+            to {
+                box-shadow: 0 0 22px #00f0ffaa;
+            }
+        }
+
+        /* Buttons */
+        .btn-row {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .btn {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        #startBtn {
+            background: var(--x-color);
+            color: #000;
+            box-shadow: 0 0 20px #00f0ff55;
+        }
+
+        #startBtn:hover {
+            box-shadow: 0 0 30px #00f0ffaa;
+        }
+
+        #startBtn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #resetBtn {
+            background: transparent;
+            color: var(--o-color);
+            border: 1px solid var(--o-color);
+            box-shadow: 0 0 12px #ff4d6d33;
+        }
+
+        #resetBtn:hover {
+            box-shadow: 0 0 24px #ff4d6d77;
+            background: #ff4d6d11;
         }
     </style>
 </head>
 
 <body>
-    <div class="container py-4">
-        <div class="card shadow-sm mx-auto" style="max-width:900px;">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="mb-0">Tic Tac Toe</h3>
-                    <div>
-                        <button id="resetBtn" class="btn btn-outline-primary btn-sm me-2">Reset Board</button>
-                        <button id="newGameBtn" class="btn btn-primary btn-sm">New Game</button>
-                    </div>
-                </div>
 
-                <div class="d-flex gap-3 flex-column flex-md-row">
-                    <div class="board card p-3">
-                        <div id="board" class="board-grid">
-                            <!-- grid will be injected -->
-                        </div>
-                    </div>
+    <h1>Tic Tac Toe</h1>
+    <div id="status">PRESS START TO PLAY</div>
 
-                    <div style="min-width:220px;" class="ms-md-2">
-                        <div class="mb-2">
-                            <div class="fw-semibold">Status</div>
-                            <div id="status" class="status text-muted">Click any cell to start. X goes first.</div>
-                        </div>
-
-                        <div class="mb-2">
-                            <div class="fw-semibold">Score</div>
-                            <div id="score" class="small text-muted">X: 0 | O: 0 | Draws: 0</div>
-                        </div>
-
-                        <div class="mb-2">
-                            <div class="fw-semibold">Controls</div>
-                            <div class="small text-muted">Use <strong>Reset Board</strong> to clear current board (keeps
-                                score). Use <strong>New Game</strong> to reset board and scores.</div>
-                        </div>
-
-                        <div class="mt-3">
-                            <label class="form-check">
-                                <input id="aiToggle" class="form-check-input" type="checkbox">
-                                <span class="form-check-label">Play vs Computer (O)</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
+    <div class="container">
+        <div class="grid">
+            <div class="row">
+                <div onclick="handleClick(this)" id="0" class="col"></div>
+                <div onclick="handleClick(this)" id="1" class="col"></div>
+                <div onclick="handleClick(this)" id="2" class="col"></div>
+            </div>
+            <div class="row">
+                <div onclick="handleClick(this)" id="3" class="col"></div>
+                <div onclick="handleClick(this)" id="4" class="col"></div>
+                <div onclick="handleClick(this)" id="5" class="col"></div>
+            </div>
+            <div class="row">
+                <div onclick="handleClick(this)" id="6" class="col"></div>
+                <div onclick="handleClick(this)" id="7" class="col"></div>
+                <div onclick="handleClick(this)" id="8" class="col"></div>
             </div>
         </div>
     </div>
 
+    <div class="btn-row">
+        <button class="btn" id="startBtn" onclick="startGame()">▶ Start</button>
+        <button class="btn" id="resetBtn" onclick="resetGame()">↺ Reset</button>
+    </div>
+
     <script>
-        // Simple Tic Tac Toe
-        const BOARD_SIZE = 3;
-        const boardEl = document.getElementById('board');
-        const statusEl = document.getElementById('status');
-        const scoreEl = document.getElementById('score');
-        const resetBtn = document.getElementById('resetBtn');
-        const newGameBtn = document.getElementById('newGameBtn');
-        const aiToggle = document.getElementById('aiToggle');
-
-        let cells = []; // array of 9: '', 'X', 'O'
         let currentPlayer = 'X';
-        let running = true;
-        let scores = { X: 0, O: 0, D: 0 };
+        let arr = Array(9).fill(null);
+        let gameActive = false;
 
-        const winningCombos = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
-            [0, 4, 8], [2, 4, 6] // diagonals
-        ];
+        console.log(arr);
 
-        function createBoard() {
-            boardEl.innerHTML = '';
-            boardEl.className = '';
-            boardEl.style.display = 'grid';
-            boardEl.style.gridTemplateColumns = 'repeat(3, 1fr)';
-            boardEl.style.gap = '6px';
+        // Update status bar
+        function updateStatus(msg, cls) {
+            const s = document.getElementById('status');
+            s.textContent = msg;
+            s.className = cls || '';
+        }
 
-            cells = Array(9).fill('');
-            running = true;
+        function startGame() {
+            gameActive = true;
+            document.getElementById('startBtn').disabled = true;
+            updateStatus("PLAYER X'S TURN", 'x');
+        }
+
+        function resetGame() {
             currentPlayer = 'X';
-            statusEl.textContent = 'X to move.';
-
-            for (let i = 0; i < 9; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cell rounded text-center';
-                cell.dataset.index = i;
-                cell.addEventListener('click', onCellClick);
-                boardEl.appendChild(cell);
-            }
-        }
-
-        function onCellClick(e) {
-            const idx = Number(e.currentTarget.dataset.index);
-            if (!running) return;
-            if (cells[idx] !== '') return;
-
-            makeMove(idx, currentPlayer);
-
-            if (aiToggle.checked && running && currentPlayer === 'O') {
-                // if it's O's turn and AI is enabled, let AI play
-                aiMove();
-            }
-        }
-
-        function makeMove(idx, player) {
-            cells[idx] = player;
-            const cellEl = boardEl.querySelector('[data-index="' + idx + '"]');
-            cellEl.textContent = player;
-            cellEl.classList.add('disabled');
-
-            const winner = checkWinner();
-            if (winner) {
-                endGame(winner);
-            } else if (cells.every(c => c !== '')) {
-                endGame('D'); // draw
-            } else {
-                currentPlayer = (player === 'X') ? 'O' : 'X';
-                statusEl.textContent = currentPlayer + ' to move.';
-                // If AI is on and it's O's turn and O is the AI, make AI move after small delay
-                if (aiToggle.checked && currentPlayer === 'O') {
-                    setTimeout(aiMove, 350);
-                }
-            }
+            arr = Array(9).fill(null);
+            gameActive = false;
+            document.getElementById('startBtn').disabled = false;
+            updateStatus('PRESS START TO PLAY');
+            document.querySelectorAll('.col').forEach(el => {
+                el.innerText = '';
+                el.className = 'col';
+            });
         }
 
         function checkWinner() {
-            for (const combo of winningCombos) {
+            const wins = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+
+            for (let combo of wins) {
                 const [a, b, c] = combo;
-                if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
-                    return cells[a];
+                if (arr[a] !== null && arr[a] === arr[b] && arr[b] === arr[c]) {
+                    // highlight winning cells
+                    combo.forEach(i => document.getElementById(String(i)).classList.add('winner-cell'));
+                    updateStatus(`🏆 PLAYER ${currentPlayer} WINS!`, currentPlayer === 'X' ? 'x' : 'o');
+                    gameActive = false;
+                    document.getElementById('startBtn').disabled = false;
+                    return true;
                 }
             }
-            return null;
-        }
 
-        function endGame(result) {
-            running = false;
-            if (result === 'D') {
-                statusEl.textContent = "It's a draw!";
-                scores.D += 1;
-            } else {
-                statusEl.textContent = result + ' wins!';
-                scores[result] += 1;
-                highlightWin(result);
+            if (!arr.some(e => e === null)) {
+                updateStatus("IT'S A DRAW!");
+                gameActive = false;
+                document.getElementById('startBtn').disabled = false;
+                return true;
             }
-            updateScore();
+
+            return false;
         }
 
-        function highlightWin(player) {
-            for (const combo of winningCombos) {
-                const [a, b, c] = combo;
-                if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
-                    [a, b, c].forEach(i => boardEl.querySelector('[data-index="' + i + '"]').classList.add('win'));
-                }
+        function handleClick(el) {
+            if (!gameActive) return;
+            const id = Number(el.id);
+            if (arr[id] !== null) return;
+            arr[id] = currentPlayer;
+            el.innerText = currentPlayer;
+            el.classList.add(currentPlayer === 'X' ? 'x-mark' : 'o-mark', 'taken');
+
+            if (!checkWinner()) {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                updateStatus(`PLAYER ${currentPlayer}'S TURN`, currentPlayer === 'X' ? 'x' : 'o');
             }
         }
-
-        function updateScore() {
-            scoreEl.textContent = `X: ${scores.X} | O: ${scores.O} | Draws: ${scores.D}`;
-        }
-
-        function resetBoard() {
-            // clear cells but keep scores
-            createBoard();
-            updateScore();
-        }
-
-        function newGame() {
-            scores = { X: 0, O: 0, D: 0 };
-            createBoard();
-            updateScore();
-        }
-
-        function aiMove() {
-            if (!running) return;
-            // very simple AI: choose winning move, block opponent, else random
-            const ai = 'O';
-            const human = 'X';
-
-            // try winning move
-            for (let i = 0; i < 9; i++) {
-                if (cells[i] === '') {
-                    cells[i] = ai;
-                    if (checkWinner() === ai) { cells[i] = ''; makeMove(i, ai); return; }
-                    cells[i] = '';
-                }
-            }
-            // try block
-            for (let i = 0; i < 9; i++) {
-                if (cells[i] === '') {
-                    cells[i] = human;
-                    if (checkWinner() === human) { cells[i] = ''; makeMove(i, ai); return; }
-                    cells[i] = '';
-                }
-            }
-            // take centre if free
-            if (cells[4] === '') { makeMove(4, ai); return; }
-            // random corner
-            const corners = [0, 2, 6, 8].filter(i => cells[i] === '');
-            if (corners.length) { makeMove(corners[Math.floor(Math.random() * corners.length)], ai); return; }
-            // any free
-            const free = cells.map((v, i) => v === '' ? i : null).filter(v => v !== null);
-            if (free.length) makeMove(free[Math.floor(Math.random() * free.length)], ai);
-        }
-
-        // wire buttons
-        resetBtn.addEventListener('click', () => resetBoard());
-        newGameBtn.addEventListener('click', () => newGame());
-
-        // init
-        createBoard();
-        updateScore();
-
-        // Keyboard support: number keys 1-9 map to cells
-        document.addEventListener('keydown', (e) => {
-            if (!running) return;
-            const map = {
-                '1': 6, '2': 7, '3': 8,
-                '4': 3, '5': 4, '6': 5,
-                '7': 0, '8': 1, '9': 2
-            };
-            if (e.key in map) {
-                const idx = map[e.key];
-                // only allow if it's player's turn (X) or AI is off
-                if (cells[idx] === '') {
-                    // if AI toggle is off or it's X's turn, allow
-                    if (!aiToggle.checked || currentPlayer === 'X') {
-                        makeMove(idx, currentPlayer);
-                    }
-                }
-            }
-        });
-
     </script>
 </body>
 
