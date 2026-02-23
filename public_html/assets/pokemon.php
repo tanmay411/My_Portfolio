@@ -94,11 +94,334 @@
       opacity: 1;
       transform: translate3d(0%, -30%, 100px);
     }
+
+    /* =============================================
+       DESIGN ENHANCEMENTS — added below, no original code touched
+       ============================================= */
+
+    /* Animated starfield background */
+    body {
+      background: #0a0a14 !important;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(255, 203, 5, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(238, 28, 37, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(38, 150, 255, 0.05) 0%, transparent 50%) !important;
+      min-height: 100vh;
+    }
+
+    /* Floating particles */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255, 203, 5, 0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 30%, rgba(238, 28, 37, 0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 85%, rgba(255, 255, 255, 0.15) 0%, transparent 100%),
+        radial-gradient(2px 2px at 50% 50%, rgba(255, 203, 5, 0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 10%, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.6;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Header glow */
+    header {
+      background: rgba(10, 10, 20, 0.92) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 203, 5, 0.18) !important;
+      box-shadow: 0 4px 40px rgba(255, 203, 5, 0.08) !important;
+    }
+
+    header h2 {
+      font-size: 2rem;
+      letter-spacing: 4px;
+      background: linear-gradient(135deg, #ffcb05, #ff6b35, #ee1c25);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(255, 203, 5, 0.5));
+    }
+
+    /* Logo spin on hover */
+    .custom-logo {
+      filter: drop-shadow(0 0 10px rgba(255, 203, 5, 0.6));
+      transition: transform 0.6s ease;
+    }
+
+    .custom-logo:hover {
+      transform: rotate(360deg);
+    }
+
+    /* Search bar */
+    #searchInput {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 203, 5, 0.3) !important;
+      color: #fff !important;
+      border-radius: 30px !important;
+      padding: 12px 22px !important;
+      font-family: "Quicksand", sans-serif;
+      font-weight: 600;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    #searchInput:focus {
+      border-color: #ffcb05 !important;
+      box-shadow: 0 0 18px rgba(255, 203, 5, 0.25) !important;
+      outline: none !important;
+      background: rgba(255, 255, 255, 0.09) !important;
+    }
+
+    #searchInput::placeholder {
+      color: rgba(255, 255, 255, 0.35) !important;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #ffcb05, #ff8c00) !important;
+      border: none !important;
+      border-radius: 30px !important;
+      color: #111 !important;
+      font-family: "Luckiest Guy", cursive !important;
+      letter-spacing: 2px !important;
+      padding: 10px 24px !important;
+      font-size: 0.9rem !important;
+      box-shadow: 0 4px 20px rgba(255, 203, 5, 0.35) !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+
+    .btn-success:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 30px rgba(255, 203, 5, 0.55) !important;
+    }
+
+    /* Card wrapper glow + border */
+    .custom-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 203, 5, 0.15);
+    }
+
+    .custom-card:hover .custom-wrapper {
+      box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 203, 5, 0.15) !important;
+    }
+
+    /* Card title glow */
+    .custom-title {
+      font-family: "Luckiest Guy", cursive;
+      letter-spacing: 2px;
+      font-size: 1.1rem;
+      color: #fff;
+      text-shadow: 0 0 14px rgba(255, 203, 5, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Pokeball spinner loader */
+    #loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 60px 0;
+      width: 100%;
+    }
+
+    .pokeball-spin {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #ee1c25 50%, #fff 50%);
+      border: 4px solid #111;
+      position: relative;
+      animation: spin 0.9s linear infinite;
+      box-shadow: 0 0 30px rgba(238, 28, 37, 0.5);
+    }
+
+    .pokeball-spin::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      border: 4px solid #111;
+      z-index: 2;
+    }
+
+    .pokeball-spin::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 2px);
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #111;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #loader p {
+      font-family: "Luckiest Guy", cursive;
+      letter-spacing: 3px;
+      font-size: 1rem;
+      color: #ffcb05;
+      text-shadow: 0 0 10px rgba(255, 203, 5, 0.5);
+      animation: pulse 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {
+        opacity: 0.5;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(10, 10, 20, 0.92) !important;
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 203, 5, 0.12) !important;
+      color: rgba(255, 255, 255, 0.4) !important;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+    }
+
+    /* Modal */
+    .modal-content {
+      background: rgba(12, 12, 22, 0.97) !important;
+      border: 1px solid rgba(255, 203, 5, 0.2) !important;
+      border-radius: 20px !important;
+      box-shadow: 0 0 60px rgba(255, 203, 5, 0.12), 0 20px 80px rgba(0, 0, 0, 0.8) !important;
+      backdrop-filter: blur(20px);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid rgba(255, 203, 5, 0.12) !important;
+      padding: 20px 24px !important;
+    }
+
+    #modalTitle {
+      font-family: "Luckiest Guy", cursive !important;
+      font-size: 1.8rem !important;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #ffcb05, #ff6b35);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    #modalImage {
+      filter: drop-shadow(0 0 30px rgba(255, 203, 5, 0.4));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .modal-body p {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .modal-body span {
+      color: #ffcb05;
+    }
+
+    /* Type badges */
+    #modalTypes .badge {
+      font-family: "Luckiest Guy", cursive !important;
+      letter-spacing: 2px !important;
+      font-size: 0.75rem !important;
+      padding: 8px 16px !important;
+      border-radius: 20px !important;
+      background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
+    }
+
+    /* Stats row in modal */
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+
+    .stat-box {
+      background: rgba(255, 203, 5, 0.06);
+      border: 1px solid rgba(255, 203, 5, 0.15);
+      border-radius: 12px;
+      padding: 12px 20px;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    .stat-box .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .stat-box .stat-value {
+      font-family: "Luckiest Guy", cursive;
+      font-size: 1.1rem;
+      color: #ffcb05;
+      letter-spacing: 1px;
+    }
+
+    /* Card entry animation */
+    #pokemon-list .col-12 {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 
 <body class="body-font bg-dark text-white">
-  <!-- HEADER -->
+  <!-- HEADER (original) -->
   <header class="fixed-top bg-dark">
     <div class="container d-flex align-items-center justify-content-center">
       <img src="Poké_Ball_icon.png" class="custom-logo" />
@@ -106,10 +429,10 @@
     </div>
   </header>
 
-  <!-- MAIN -->
+  <!-- MAIN (original) -->
   <main class="custom-main">
     <div class="container">
-      <!-- SEARCH -->
+      <!-- SEARCH (original) -->
       <div class="row justify-content-center mb-5">
         <div class="col-12 col-md-6">
           <div class="d-flex">
@@ -121,17 +444,23 @@
         </div>
       </div>
 
-      <!-- POKEMON CARDS -->
-      <div class="row" id="pokemon-list"></div>
+      <!-- POKEMON CARDS (original) -->
+      <div class="row" id="pokemon-list">
+        <!-- Loader (design addition, removed by JS once loaded) -->
+        <div id="loader">
+          <div class="pokeball-spin"></div>
+          <p>Loading Pokédex...</p>
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (original) -->
   <footer class="fixed-bottom bg-dark text-center py-3">
     © 2023 Pokémon Encyclopedia
   </footer>
 
-  <!-- MODAL -->
+  <!-- MODAL (original structure, enhanced labels via CSS) -->
   <div class="modal fade" id="pokemonModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content bg-dark text-white">
@@ -141,17 +470,29 @@
         </div>
         <div class="modal-body text-center">
           <img id="modalImage" class="img-fluid mb-3" style="max-height: 250px" />
-          <p>ID: <span id="modalId"></span></p>
+          <!-- Stat boxes (design layer wrapping original spans) -->
+          <div class="stat-row">
+            <div class="stat-box">
+              <div class="stat-label">Pokédex ID</div>
+              <div class="stat-value">#<span id="modalId"></span></div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Height</div>
+              <div class="stat-value"><span id="modalHeight"></span></div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Weight</div>
+              <div class="stat-value"><span id="modalWeight"></span></div>
+            </div>
+          </div>
           <div id="modalTypes" class="mb-3"></div>
-          <p>Height: <span id="modalHeight"></span></p>
-          <p>Weight: <span id="modalWeight"></span></p>
           <p>Abilities: <span id="modalAbilities"></span></p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SCRIPTS -->
+  <!-- SCRIPTS (original) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
@@ -174,21 +515,23 @@
 
     function displayPokemon(list) {
       pokemonList.innerHTML = "";
-      list.forEach((p) => {
+      list.forEach((p, i) => {
         const id = p.id.toString().padStart(3, "0");
-        pokemonList.innerHTML += `
-            <div class="col-12 col-md-6 col-lg-3 mb-5 d-flex justify-content-center">
-              <a href="#" class="custom-card-link" onclick="openModal(${p.id})">
-                <div class="custom-card">
-                  <div class="custom-wrapper">
-                    <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/${id}.png" class="custom-cover-image">
-                  </div>
-                  <h4 class="custom-title text-capitalize">${p.name}</h4>
-                  <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/${id}.png" class="custom-character">
+        const col = document.createElement('div');
+        col.className = "col-12 col-md-6 col-lg-3 mb-5 d-flex justify-content-center";
+        col.style.animationDelay = `${i * 0.08}s`;
+        col.innerHTML = `
+            <a href="#" class="custom-card-link" onclick="openModal(${p.id})">
+              <div class="custom-card">
+                <div class="custom-wrapper">
+                  <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/${id}.png" class="custom-cover-image">
                 </div>
-              </a>
-            </div>
+                <h4 class="custom-title text-capitalize">${p.name}</h4>
+                <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/${id}.png" class="custom-character">
+              </div>
+            </a>
           `;
+        pokemonList.appendChild(col);
       });
     }
 
