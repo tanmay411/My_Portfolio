@@ -368,6 +368,79 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
     }
 
+    /* Autocomplete suggestion box */
+    #suggestionBox {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(12, 12, 24, 0.97);
+      border: 1px solid rgba(255, 203, 5, 0.25);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      list-style: none;
+      margin: 0;
+      padding: 6px 0;
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 9999;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+      display: none;
+      backdrop-filter: blur(14px);
+    }
+
+    #suggestionBox.open {
+      display: block;
+    }
+
+    #suggestionBox li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: "Quicksand", sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: capitalize;
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 1px;
+    }
+
+    #suggestionBox li:hover,
+    #suggestionBox li.active {
+      background: rgba(255, 203, 5, 0.12);
+      color: #ffcb05;
+    }
+
+    #suggestionBox li img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 4px rgba(255, 203, 5, 0.3));
+    }
+
+    #suggestionBox li .sug-id {
+      margin-left: auto;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 2px;
+    }
+
+    #suggestionBox::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #suggestionBox::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #suggestionBox::-webkit-scrollbar-thumb {
+      background: rgba(255, 203, 5, 0.3);
+      border-radius: 4px;
+    }
+
     /* Stats row in modal */
     .stat-row {
       display: flex;
@@ -435,8 +508,12 @@
       <!-- SEARCH (original) -->
       <div class="row justify-content-center mb-5">
         <div class="col-12 col-md-6">
-          <div class="d-flex">
-            <input id="searchInput" class="form-control me-2" placeholder="Search Pokémon by name or ID" />
+          <div class="d-flex" style="position:relative;">
+            <div style="position:relative; flex:1;" class="me-2">
+              <input id="searchInput" class="form-control" placeholder="Search Pokémon by name or ID"
+                oninput="showSuggestions(this.value)" onkeydown="handleKey(event)" autocomplete="off" />
+              <ul id="suggestionBox"></ul>
+            </div>
             <button class="btn btn-success" onclick="searchPokemon()">
               Search
             </button>
@@ -496,6 +573,60 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
+    let activeIndex = -1;
+
+    function showSuggestions(val) {
+      const box = document.getElementById('suggestionBox');
+      activeIndex = -1;
+      if (!val || val.length < 1) { box.className = ''; return; }
+
+      const matches = allPokemon
+        .filter(p => p.name.startsWith(val.toLowerCase()) || p.id.toString().startsWith(val))
+        .slice(0, 8);
+
+      if (!matches.length) { box.className = ''; return; }
+
+      box.innerHTML = matches.map(p => {
+        const id = p.id.toString().padStart(3, '0');
+        return `<li onclick="selectSuggestion('${p.name}')">
+          <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/${id}.png" />
+          ${p.name}
+          <span class="sug-id">#${id}</span>
+        </li>`;
+      }).join('');
+      box.className = 'open';
+    }
+
+    function selectSuggestion(name) {
+      document.getElementById('searchInput').value = name;
+      document.getElementById('suggestionBox').className = '';
+      searchPokemon();
+    }
+
+    function handleKey(e) {
+      const box = document.getElementById('suggestionBox');
+      const items = box.querySelectorAll('li');
+      if (!items.length) return;
+      if (e.key === 'ArrowDown') {
+        activeIndex = Math.min(activeIndex + 1, items.length - 1);
+      } else if (e.key === 'ArrowUp') {
+        activeIndex = Math.max(activeIndex - 1, 0);
+      } else if (e.key === 'Enter' && activeIndex >= 0) {
+        items[activeIndex].click(); return;
+      } else if (e.key === 'Escape') {
+        box.className = ''; return;
+      }
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+      if (activeIndex >= 0) items[activeIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#searchInput') && !e.target.closest('#suggestionBox')) {
+        document.getElementById('suggestionBox').className = '';
+      }
+    });
+
     const pokemonList = document.getElementById("pokemon-list");
     let allPokemon = [];
 
