@@ -887,8 +887,9 @@
             <div class="card project-card">
               <div class="card-body text-center">
                 <h5 class="card-title">Ledger</h5>
-                <p class="card-text">Financial tracking and management application.</p>
-                <a href="newPro" target="_blank" class="btn btn-primary">View Project</a>
+                <p class="card-text">A PHP-based to-do list project that allows users to create, manage, update, and
+                  track their daily tasks efficiently through a simple and dynamic web interface</p>
+                <a href="https://tanmay-project.42web.io/" target="_blank" class="btn btn-primary">View Project</a>
               </div>
             </div>
           </div>
