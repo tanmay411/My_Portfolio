@@ -38,7 +38,6 @@
       height: 100px;
     }
 
-    /* CARD ANIMATION (UNCHANGED) */
     .custom-card-link {
       text-decoration: none;
       color: white;
@@ -95,11 +94,6 @@
       transform: translate3d(0%, -30%, 100px);
     }
 
-    /* =============================================
-       DESIGN ENHANCEMENTS — added below, no original code touched
-       ============================================= */
-
-    /* Animated starfield background */
     body {
       background: #0a0a14 !important;
       background-image:
@@ -109,7 +103,6 @@
       min-height: 100vh;
     }
 
-    /* Floating particles */
     body::before {
       content: '';
       position: fixed;
@@ -136,7 +129,6 @@
       }
     }
 
-    /* Header glow */
     header {
       background: rgba(10, 10, 20, 0.92) !important;
       backdrop-filter: blur(14px);
@@ -154,7 +146,6 @@
       filter: drop-shadow(0 0 12px rgba(255, 203, 5, 0.5));
     }
 
-    /* Logo spin on hover */
     .custom-logo {
       filter: drop-shadow(0 0 10px rgba(255, 203, 5, 0.6));
       transition: transform 0.6s ease;
@@ -164,7 +155,6 @@
       transform: rotate(360deg);
     }
 
-    /* Search bar */
     #searchInput {
       background: rgba(255, 255, 255, 0.06) !important;
       border: 1px solid rgba(255, 203, 5, 0.3) !important;
@@ -205,7 +195,6 @@
       box-shadow: 0 8px 30px rgba(255, 203, 5, 0.55) !important;
     }
 
-    /* Card wrapper glow + border */
     .custom-wrapper {
       border-radius: 12px;
       overflow: hidden;
@@ -216,7 +205,6 @@
       box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 203, 5, 0.15) !important;
     }
 
-    /* Card title glow */
     .custom-title {
       font-family: "Luckiest Guy", cursive;
       letter-spacing: 2px;
@@ -225,7 +213,6 @@
       text-shadow: 0 0 14px rgba(255, 203, 5, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
-    /* Pokeball spinner loader */
     #loader {
       display: flex;
       flex-direction: column;
@@ -296,7 +283,6 @@
       }
     }
 
-    /* Footer */
     footer {
       background: rgba(10, 10, 20, 0.92) !important;
       backdrop-filter: blur(14px);
@@ -306,7 +292,6 @@
       letter-spacing: 2px;
     }
 
-    /* Modal */
     .modal-content {
       background: rgba(12, 12, 22, 0.97) !important;
       border: 1px solid rgba(255, 203, 5, 0.2) !important;
@@ -357,7 +342,6 @@
       color: #ffcb05;
     }
 
-    /* Type badges */
     #modalTypes .badge {
       font-family: "Luckiest Guy", cursive !important;
       letter-spacing: 2px !important;
@@ -368,7 +352,6 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
     }
 
-    /* Autocomplete suggestion box */
     #suggestionBox {
       position: absolute;
       top: 100%;
@@ -441,7 +424,6 @@
       border-radius: 4px;
     }
 
-    /* Stats row in modal */
     .stat-row {
       display: flex;
       justify-content: center;
@@ -474,7 +456,6 @@
       letter-spacing: 1px;
     }
 
-    /* Card entry animation */
     #pokemon-list .col-12 {
       animation: fadeUp 0.5s ease both;
     }
@@ -494,7 +475,6 @@
 </head>
 
 <body class="body-font bg-dark text-white">
-  <!-- HEADER (original) -->
   <header class="fixed-top bg-dark">
     <div class="container d-flex align-items-center justify-content-center">
       <img src="Poké_Ball_icon.png" class="custom-logo" />
@@ -502,10 +482,8 @@
     </div>
   </header>
 
-  <!-- MAIN (original) -->
   <main class="custom-main">
     <div class="container">
-      <!-- SEARCH (original) -->
       <div class="row justify-content-center mb-5">
         <div class="col-12 col-md-6">
           <div class="d-flex" style="position:relative;">
@@ -514,16 +492,12 @@
                 oninput="showSuggestions(this.value)" onkeydown="handleKey(event)" autocomplete="off" />
               <ul id="suggestionBox"></ul>
             </div>
-            <button class="btn btn-success" onclick="searchPokemon()">
-              Search
-            </button>
+            <button class="btn btn-success" onclick="searchPokemon()">Search</button>
           </div>
         </div>
       </div>
 
-      <!-- POKEMON CARDS (original) -->
       <div class="row" id="pokemon-list">
-        <!-- Loader (design addition, removed by JS once loaded) -->
         <div id="loader">
           <div class="pokeball-spin"></div>
           <p>Loading Pokédex...</p>
@@ -532,12 +506,10 @@
     </div>
   </main>
 
-  <!-- FOOTER (original) -->
   <footer class="fixed-bottom bg-dark text-center py-3">
     © 2023 Pokémon Encyclopedia
   </footer>
 
-  <!-- MODAL (original structure, enhanced labels via CSS) -->
   <div class="modal fade" id="pokemonModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content bg-dark text-white">
@@ -547,7 +519,6 @@
         </div>
         <div class="modal-body text-center">
           <img id="modalImage" class="img-fluid mb-3" style="max-height: 250px" />
-          <!-- Stat boxes (design layer wrapping original spans) -->
           <div class="stat-row">
             <div class="stat-box">
               <div class="stat-label">Pokédex ID</div>
@@ -569,11 +540,12 @@
     </div>
   </div>
 
-  <!-- SCRIPTS (original) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     let activeIndex = -1;
+    let allPokemon = [];
+    const pokemonList = document.getElementById("pokemon-list");
 
     function showSuggestions(val) {
       const box = document.getElementById('suggestionBox');
@@ -620,28 +592,32 @@
       if (activeIndex >= 0) items[activeIndex].scrollIntoView({ block: 'nearest' });
     }
 
-    // Close suggestions when clicking outside
     document.addEventListener('click', e => {
       if (!e.target.closest('#searchInput') && !e.target.closest('#suggestionBox')) {
         document.getElementById('suggestionBox').className = '';
       }
     });
 
-    const pokemonList = document.getElementById("pokemon-list");
-    let allPokemon = [];
-
     async function loadPokemon() {
+      // Step 1: Fetch the list of all 151 Pokémon URLs (single request)
       const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
       const data = await res.json();
 
-      for (let p of data.results) {
-        const r = await fetch(p.url);
-        const d = await r.json();
-        allPokemon.push(d);
-      }
+      // ✅ FIX: Fetch all 151 in parallel using Promise.all instead of sequential for-of
+      // This fires all requests simultaneously instead of waiting for each one to finish
+      const promises = data.results.map(p => fetch(p.url).then(r => r.json()));
 
-      //  FIRST 4 LANING
-      displayPokemon(allPokemon.slice(0, 4));
+      // Step 2: Fetch first 4 in parallel and display them immediately
+      const first4 = await Promise.all(promises.slice(0, 4));
+      first4.forEach(d => allPokemon.push(d));
+      displayPokemon(allPokemon); // ← Cards appear almost instantly now
+
+      // Step 3: Load remaining 147 in parallel in the background (won't block the UI)
+      const rest = await Promise.all(promises.slice(4));
+      rest.forEach(d => allPokemon.push(d));
+
+      // Sort by ID so the full list is in order when searched
+      allPokemon.sort((a, b) => a.id - b.id);
     }
 
     function displayPokemon(list) {
@@ -652,16 +628,15 @@
         col.className = "col-12 col-md-6 col-lg-3 mb-5 d-flex justify-content-center";
         col.style.animationDelay = `${i * 0.08}s`;
         col.innerHTML = `
-            <a href="#" class="custom-card-link" onclick="openModal(${p.id})">
-              <div class="custom-card">
-                <div class="custom-wrapper">
-                  <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/${id}.png" class="custom-cover-image">
-                </div>
-                <h4 class="custom-title text-capitalize">${p.name}</h4>
-                <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/${id}.png" class="custom-character">
+          <a href="#" class="custom-card-link" onclick="openModal(${p.id})">
+            <div class="custom-card">
+              <div class="custom-wrapper">
+                <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/thumbnails/${id}.png" class="custom-cover-image">
               </div>
-            </a>
-          `;
+              <h4 class="custom-title text-capitalize">${p.name}</h4>
+              <img src="https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/${id}.png" class="custom-character">
+            </div>
+          </a>`;
         pokemonList.appendChild(col);
       });
     }
@@ -677,14 +652,12 @@
     function openModal(id) {
       const p = allPokemon.find((x) => x.id === id);
       new bootstrap.Modal(pokemonModal).show();
-
       modalTitle.innerText = p.name;
       modalId.innerText = p.id;
       modalImage.src = p.sprites.other["official-artwork"].front_default;
       modalHeight.innerText = p.height / 10 + " m";
       modalWeight.innerText = p.weight / 10 + " kg";
       modalAbilities.innerText = p.abilities.map(a => a.ability.name).join(", ");
-
       modalTypes.innerHTML = "";
       p.types.forEach(t => {
         modalTypes.innerHTML += `<span class="badge bg-success me-2">${t.type.name}</span>`;
