@@ -73,6 +73,14 @@
       box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
     }
 
+    .custom-cover-image {
+      transition: filter 0.5s ease;
+    }
+
+    .custom-card:hover .custom-cover-image {
+      filter: blur(6px) brightness(0.5);
+    }
+
     .custom-title {
       transition: transform 0.5s;
     }
