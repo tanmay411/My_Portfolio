@@ -886,12 +886,11 @@
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
             <div class="card project-card">
               <div class="card-body text-center">
-                <h5 class="card-title">Ledger</h5>
-                <p class="card-text">A PHP-based to-do list project that allows users to create, manage, update, and
-                  track their daily tasks efficiently through a simple and dynamic web interface</p>
+                <h5 class="card-title">To-Do List</h5>
+                <p class="card-text">A simple and interactive to-do list application built with PHP.</p>
                 <a href="https://tanmay-project.42web.io/" target="_blank" class="btn btn-primary">View Project</a>
               </div>
-            </div>
+            </div>s
           </div>
 
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="350">
