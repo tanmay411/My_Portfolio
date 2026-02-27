@@ -590,7 +590,7 @@
                 <ul class="info-list">
                   <li>
                     <i class="bi bi-caret-right-square fs-5"></i>
-                    <strong>Age:</strong> 17
+                    <strong>Age:</strong> 19
                   </li>
                   <li>
                     <i class="bi bi-caret-right-square fs-5"></i>
@@ -890,7 +890,7 @@
                 <p class="card-text">A simple and interactive to-do list application built with PHP.</p>
                 <a href="https://tanmay-project.42web.io/" target="_blank" class="btn btn-primary">View Project</a>
               </div>
-            </div>s
+            </div>
           </div>
 
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="350">
