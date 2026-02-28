@@ -17,6 +17,14 @@
       --card-width: calc(var(--card-height) / 1.5);
     }
 
+    /* ✅ FIX: Smaller cards on mobile so they fit in col-6 without cutoff */
+    @media (max-width: 575px) {
+      :root {
+        --card-height: 210px;
+        --card-width: calc(var(--card-height) / 1.5);
+      }
+    }
+
     .heading-font {
       font-family: "Luckiest Guy", cursive;
     }
@@ -219,6 +227,14 @@
       font-size: 1.1rem;
       color: #fff;
       text-shadow: 0 0 14px rgba(255, 203, 5, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* ✅ FIX: Smaller title font on mobile */
+    @media (max-width: 575px) {
+      .custom-title {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+      }
     }
 
     #loader {
@@ -464,7 +480,9 @@
       letter-spacing: 1px;
     }
 
-    #pokemon-list .col-12 {
+    #pokemon-list .col-6,
+    #pokemon-list .col-md-6,
+    #pokemon-list .col-lg-3 {
       animation: fadeUp 0.5s ease both;
     }
 
@@ -607,24 +625,18 @@
     });
 
     async function loadPokemon() {
-      // Step 1: Fetch the list of all 151 Pokémon URLs (single request)
       const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
       const data = await res.json();
 
-      // ✅ FIX: Fetch all 151 in parallel using Promise.all instead of sequential for-of
-      // This fires all requests simultaneously instead of waiting for each one to finish
       const promises = data.results.map(p => fetch(p.url).then(r => r.json()));
 
-      // Step 2: Fetch first 4 in parallel and display them immediately
       const first4 = await Promise.all(promises.slice(0, 4));
       first4.forEach(d => allPokemon.push(d));
-      displayPokemon(allPokemon); // ← Cards appear almost instantly now
+      displayPokemon(allPokemon);
 
-      // Step 3: Load remaining 147 in parallel in the background (won't block the UI)
       const rest = await Promise.all(promises.slice(4));
       rest.forEach(d => allPokemon.push(d));
 
-      // Sort by ID so the full list is in order when searched
       allPokemon.sort((a, b) => a.id - b.id);
     }
 
@@ -633,7 +645,8 @@
       list.forEach((p, i) => {
         const id = p.id.toString().padStart(3, "0");
         const col = document.createElement('div');
-        col.className = "col-12 col-md-6 col-lg-3 mb-5 d-flex justify-content-center";
+        // ✅ FIX: Changed col-12 → col-6 so mobile shows 2 cards per row (no cutoff)
+        col.className = "col-6 col-md-6 col-lg-3 mb-5 d-flex justify-content-center";
         col.style.animationDelay = `${i * 0.08}s`;
         col.innerHTML = `
           <a href="#" class="custom-card-link" onclick="openModal(${p.id})">
