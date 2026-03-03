@@ -39,6 +39,8 @@
 
     .custom-main {
       margin-top: 120px;
+      /* ✅ FIX: Ensure content clears the fixed footer (100px height + extra breathing room) */
+      padding-bottom: 120px;
     }
 
     header,
@@ -478,6 +480,17 @@
       font-size: 1.1rem;
       color: #ffcb05;
       letter-spacing: 1px;
+    }
+
+    /* ✅ FIX: Extra bottom padding on mobile to clear fixed footer */
+    @media (max-width: 767px) {
+      .custom-main {
+        padding-bottom: 140px;
+      }
+
+      #pokemon-list {
+        padding-bottom: 20px;
+      }
     }
 
     #pokemon-list .col-6,
