@@ -683,6 +683,7 @@
       displayPokemon(filtered);
     }
 
+
     function openModal(id) {
       const p = allPokemon.find((x) => x.id === id);
       new bootstrap.Modal(pokemonModal).show();
