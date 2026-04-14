@@ -1516,7 +1516,7 @@
               <li>Maintained and updated existing web applications</li>
             </ul>
             <h4 class="mt-4">Kryotek Softwares</h4>
-            <p class="text-muted">2026 - Present</p>
+            <p class="text-muted">Feb 2025 - Nov 2025</p>
             <p>Developing custom websites using HTML, CSS, JavaScript, PHP, WordPress and Laravel.</p>
             <ul>
               <li>Built responsive websites for various clients</li>
